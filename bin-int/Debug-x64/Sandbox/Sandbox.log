@@ -1,0 +1,4 @@
+﻿D:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\Microsoft.Common.CurrentVersion.targets(2116,5): warning : The referenced project '..\Game-Engine\Game-Engine.vcxproj' does not exist.
+  Application.cpp
+F:\dev\Game-Engine\Sandbox\src\Application.cpp(8,13): warning C4326: “main”的返回类型应为“int”而非“void”
+  Sandbox.vcxproj -> F:\dev\Game-Engine\bin\Debug-x64\Sandbox\Sandbox.exe
