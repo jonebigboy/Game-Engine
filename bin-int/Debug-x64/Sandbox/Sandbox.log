@@ -1,2 +1,0 @@
-﻿D:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\Microsoft.Common.CurrentVersion.targets(2116,5): warning : The referenced project '..\Game-Engine\Game-Engine.vcxproj' does not exist.
-  Sandbox.vcxproj -> F:\dev\Game-Engine\bin\Debug-x64\Sandbox\Sandbox.exe
