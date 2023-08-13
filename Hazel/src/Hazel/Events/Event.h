@@ -1,10 +1,7 @@
 #pragma once
 
+#include "hzpch.h"
 #include "Hazel/Core.h"
-#include <string>
-#include <functional>
-
-
 
 
 namespace Hazel {
@@ -36,6 +33,8 @@ namespace Hazel {
 	class HAZEL_API Event {
 
 	public:
+		friend class EventDispatcher;
+		bool m_Handled = false;
 
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
@@ -47,8 +46,8 @@ namespace Hazel {
 			return GetCategoryFlags() & category;
 		}
 
-	protected:
-		bool m_Handled = false;
+	//protected:
+		//bool m_Handled = false;
 	};
 
 	class EventDispatcher {

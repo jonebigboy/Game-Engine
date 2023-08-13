@@ -1,4 +1,5 @@
 workspace "Hazel"
+
 	architecture "x64"
 
 	configurations{
@@ -7,8 +8,17 @@ workspace "Hazel"
 		"Dist",
 	}
 
+outputdir = "%{cfg.buildcfg}-%{cfg.system}_%{cfg.architecture}"
 
-local outputdir = "%{cfg.buildcfg}-%{cfg.system}_%{cfg.architecture}"
+-- Include directions relative to root folder {solution directions}
+
+IncludeDir = {}
+IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
+IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
+
+-- 把premake导入这个文件
+include "Hazel/vendor/GLFW"
+include "Hazel/vendor/Glad"
 
 project "Hazel" 
 	location "Hazel"
@@ -18,15 +28,29 @@ project "Hazel"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "hzpch.h"
+	pchsource ("Hazel/src/hzpch.cpp")
+
 	files{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
 	}
 
 	includedirs{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
 	}
+
+	links{
+		"GLFW",
+		"Glad",
+		"opengl32.lib",
+	}
+
 
 	filter "system:windows"
 		cppdialect "C++17"
@@ -36,6 +60,7 @@ project "Hazel"
 		defines{
 			"HZ_PLATFORM_WINDOWS",
 			"HZ_BULID_DLL",
+			"GLFW_INCLUDE_NONE",
 		}
 
 		postbuildcommands{
@@ -44,14 +69,17 @@ project "Hazel"
 
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "HZ_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 
@@ -89,12 +117,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "HZ_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "HZ_DIST"
+		buildoptions "/MD"
 		optimize "On"

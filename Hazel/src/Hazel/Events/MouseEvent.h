@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Event.h"
-#include <sstream>
+
 
 namespace Hazel {
 
@@ -67,6 +67,7 @@ namespace Hazel {
 	public:
 		MouseButtonPressedEvent(int buttoncode)
 			:MouseButtonEvent(buttoncode){}
+
 		std::string ToString() const override
 		{
 			std::stringstream ss;
@@ -75,23 +76,23 @@ namespace Hazel {
 		}
 		
 		EVENT_CLASS_TYPE(MouseButtonPressed)
-
-		class HAZEL_API MouseButtonReleasedEvent : public MouseButtonEvent
-		{
-		public:
-			MouseButtonReleasedEvent(int button)
-				: MouseButtonEvent(button) {}
-
-			std::string ToString() const override
-			{
-				std::stringstream ss;
-				ss << "MouseButtonReleasedEvent: " << m_ButtonCode;
-				return ss.str();
-			}
-
-			EVENT_CLASS_TYPE(MouseButtonReleased)
-		};
 	
+	};
+
+	class HAZEL_API MouseButtonReleasedEvent : public MouseButtonEvent
+	{
+	public:
+		MouseButtonReleasedEvent(int button)
+			: MouseButtonEvent(button) {}
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "MouseButtonReleasedEvent: " << m_ButtonCode;
+			return ss.str();
+		}
+
+		EVENT_CLASS_TYPE(MouseButtonReleased)
 	};
 
 
